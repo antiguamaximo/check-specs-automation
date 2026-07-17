@@ -15,20 +15,20 @@ This tool was created to quickly check specs of devices I manage or diagnose. It
 ## How to run it
 
 ### Locally
-\`\`\`
+```
 pip install -r requirements.txt
 python check-specs-automation.py
-\`\`\`
+```
 
 ### With Docker
-\`\`\`
+```
 docker build -t check-specs-automation .
 docker run --rm check-specs-automation
-\`\`\`
+```
 
 ## Sample output
 
-![Sample output](screenshots/sample-output.pngimage.png)
+![Sample output](screenshots/sample-output.png)
 
 ## What I learned / Why I built this
 
