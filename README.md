@@ -34,8 +34,8 @@ docker run --rm check-specs-automation
 
 This was my first try creating a Docker image with a Python script. Thanks to it, I increased my hands-on experience with Docker and Python. Furthermore, while I was researching how to properly configure and structure this small project, I learned how a proper GitHub repository should look before it gets pushed. 
 
-Specifically, dealing with dependencies caused me issues because of my lack of understanding. I did not know how to fully utilize the `requirements.txt` document. After researching for a bit (and some AI assistance), I was able to figure out a proper way to create a requirements document. 
+Specifically, dealing with dependencies caused me issues because of my lack of understanding. I did not know how to fully utilize the `requirements.txt` file. After researching for a bit (and some AI assistance), I was able to figure out a proper way to create a requirements document. 
 
 Furthermore, I initially had my virtual environment and source files mixed together in the same folder, which taught me the importance of separating environment setup from the code that actually needs to be version-controlled.
 
-Lastly, the Dockerfile itself confused me, however there were a lot of resources on the web which had from complex Dockerfiles to more simple ones.
+Lastly, the Dockerfile itself confused me, however there were a lot of resources on the web which ranged from complex Dockerfiles to more simple ones.
