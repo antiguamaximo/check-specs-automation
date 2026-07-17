@@ -30,8 +30,7 @@ docker run --rm check-specs-automation
 
 ![Sample output](screenshots/sample-output.png)
 
-## What I learned / Why I built this
-
+## What I learned
 This was my first try creating a Docker image with a Python script. Thanks to it, I increased my hands-on experience with Docker and Python. Furthermore, while I was researching how to properly configure and structure this small project, I learned how a proper GitHub repository should look before it gets pushed. 
 
 Specifically, dealing with dependencies caused me issues because of my lack of understanding. I did not know how to fully utilize the `requirements.txt` file. After researching for a bit (and some AI assistance), I was able to figure out a proper way to create a requirements document. 
