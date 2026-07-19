@@ -25,6 +25,11 @@ python check-specs-automation.py
 docker build -t check-specs-automation .
 docker run --rm check-specs-automation
 ```
+## Note on `app.py`
+
+This repo originally contained a single standalone script (`check-specs-automation.py`) that runs once and exits. `app.py` was added afterward as a small Flask wrapper, so this same Docker image could be deployed as a long-running service in a local Kubernetes cluster (see my [Tier 2 Kubernetes project](https://github.com/antiguamaximo/K8s-local-cluster.git) for that part).
+
+`check-specs-automation.py` itself is unchanged — `app.py` simply calls it via subprocess and exposes it over an HTTP endpoint. The Dockerfile's `CMD` was updated accordingly to run `app.py` instead of the original script directly.
 
 ## Sample output
 
