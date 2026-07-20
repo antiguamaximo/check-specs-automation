@@ -42,4 +42,6 @@ Specifically, dealing with dependencies caused me issues because of my lack of u
 
 Furthermore, I initially had my virtual environment and source files mixed together in the same folder, which taught me the importance of separating environment setup from the code that actually needs to be version-controlled.
 
-Lastly, the Dockerfile itself confused me, however there were a lot of resources on the web which ranged from complex Dockerfiles to more simple ones.
+The Dockerfile itself confused me, however there were a lot of resources on the web which ranged from complex Dockerfiles to more simple ones.
+
+Added some extra stuff! CI/CD Stuff!
