@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/run")
 def run_check():
-    result = subprocess.run(["python", "check-specs-automation.py"], capture_output=True, text=True)
+    result = subprocess.run(["python", "check_specs_automation.py"], capture_output=True, text=True)
     return result.stdout
 
 @app.route("/health")
