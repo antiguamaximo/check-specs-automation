@@ -6,11 +6,13 @@ This tool was created to quickly check specs of devices I manage or diagnose. It
 
 - It helps me collect a lot of information faster
 - It assist with less technical people
+- test, builds, pushes on every push to `main` (CI/CD)
 
 ## Tech stack
 
 - Python
 - Docker
+- GitHub Actions
 
 ## How to run it
 
@@ -31,6 +33,13 @@ This repo originally contained a single standalone script (`check-specs-automati
 
 `check-specs-automation.py` itself is unchanged — `app.py` simply calls it via subprocess and exposes it over an HTTP endpoint. The Dockerfile's `CMD` was updated accordingly to run `app.py` instead of the original script directly.
 
+## CI/CD Pipeline
+
+```
+Push to main → Checkout code (actions/checkout) → Set up Python + install dependencies → Run test (pytest) → Log in to Docker Hub → Build Docker image → Push image to Docker Hub, tagged with commit SHA
+```
+Every push to `main` triggers this pipeline automatically via GitHub Actions. Tests run before the image is built, so broken code never gets containerized or published — the pipeline "gates" on passing tests rather than just being a blind build-and-push
+
 ## Sample output
 
 ![Sample output](screenshots/sample-output.png)
@@ -44,4 +53,14 @@ Furthermore, I initially had my virtual environment and source files mixed toget
 
 The Dockerfile itself confused me, however there were a lot of resources on the web which ranged from complex Dockerfiles to more simple ones.
 
-Added some extra stuff! CI/CD Stuff!
+### After adding the CI/CD Pipeline
+
+Implementing a CI/CD pipeline for the first time was a challenging experience. From filename/import problems to diagnosing GitHub errors, everything that went wrong taught me something new.
+
+Python cannot import a module with hyphens in its name, and that's how I had saved my original script: `check-specs-automation.py`, which caused an invalid syntax error. To fix this, I renamed the script to `check_specs_automation.py`. I then had to update every reference to the old filename across the project, and even missed one inside `deploy.yml`, which caused a failure.
+
+Following up with Python, I also needed a test file. It was my first time writing one, so I had to research how it works and what should be expected of the result. I ended up requiring external assistance, and wrote one using `pytest`'s `capsys` fixture, since the `get_system_info()` function doesn't return anything, it just prints to stdout. The test needed to capture and check the printed output rather than a return value. This test now acts as a "gate" for the pipeline: if it fails, the image never gets built or pushed.
+
+In addition, I learned about GitHub repo secrets. This saves me from hard-coding credentials into a workflow file, and instead lets me reference them via `${{ secrets.NAME }}`. This is exactly how the workflow in this repo accesses my Docker Hub token and username.
+
+I also ran into an issue with GitHub that was vague, with no specific line number or clear cause. I reviewed the `deploy.yml ` structure and my code multiple times, assuming the problem was on my end. After checking githubstatus.com, though, it turned out there was an active GitHub Actions outage, that was the actual cause.
