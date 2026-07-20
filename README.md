@@ -31,14 +31,14 @@ docker run --rm check-specs-automation
 
 This repo originally contained a single standalone script (`check-specs-automation.py`) that runs once and exits. `app.py` was added afterward as a small Flask wrapper, so this same Docker image could be deployed as a long-running service in a local Kubernetes cluster (see my [Tier 2 Kubernetes project](https://github.com/antiguamaximo/K8s-local-cluster.git) for that part).
 
-`check-specs-automation.py` itself is unchanged — `app.py` simply calls it via subprocess and exposes it over an HTTP endpoint. The Dockerfile's `CMD` was updated accordingly to run `app.py` instead of the original script directly.
+`check-specs-automation.py` itself is unchanged, `app.py` simply calls it via subprocess and exposes it over an HTTP endpoint. The Dockerfile's `CMD` was updated accordingly to run `app.py` instead of the original script directly.
 
 ## CI/CD Pipeline
 
 ```
 Push to main → Checkout code (actions/checkout) → Set up Python + install dependencies → Run test (pytest) → Log in to Docker Hub → Build Docker image → Push image to Docker Hub, tagged with commit SHA
 ```
-Every push to `main` triggers this pipeline automatically via GitHub Actions. Tests run before the image is built, so broken code never gets containerized or published — the pipeline "gates" on passing tests rather than just being a blind build-and-push
+Every push to `main` triggers this pipeline automatically via GitHub Actions. Tests run before the image is built, so broken code never gets containerized or published, the pipeline "gates" on passing tests rather than just being a blind build-and-push
 
 ## Sample output
 
